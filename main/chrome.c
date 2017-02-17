@@ -1,13 +1,25 @@
-#include "openPrograms.h"
+#include "twitter.h"
 #include <time.h>
+
 // created by william 2017
 int main(void){
 	int TIME = 0;
 	char command[20];
 
 	while(scanf("%s", command) == 1){
+		if ((strcmp(command, "tweet")) == 0){
+			char tweet[141];
+			scanf("%[^\n]s",tweet);
+			if (strlen(tweet) <= 140){
+				sendTweet(tweet+1);
+			}
+			else {
+				printf("bad input\n");
+			}
 
-		if ((strcmp(command, "r")) == 0){
+		}
+
+		else if ((strcmp(command, "r")) == 0){
 			TIME = 0;
 			continue;
 		}
@@ -35,7 +47,19 @@ int main(void){
 			if (strcmp(openWhat, "chrome") == 0){
 				char site[30];
 				scanf("%s",site);
-				if (TIME) {
+				if (strcmp(site, "new") == 0){
+					if (TIME) {
+						clock_t begin = clock();
+						openChrome("about:blank");
+						clock_t end = clock();
+						double time_spent = (double)(end-begin) / CLOCKS_PER_SEC;
+						printf("time: %lfs\n",time_spent);
+					} else {
+						openChrome("about:blank");
+					}
+
+			}
+				else if (TIME) {
 					clock_t begin = clock();
 					openChrome(site);
 					clock_t end = clock();
@@ -63,8 +87,8 @@ int main(void){
 					clock_t begin = clock();
 					openOverwatch();
 					clock_t end = clock();
-					double time_spend = (double)(end-begin) / CLOCKS_PER_SEC;
-					prinf("time: %'fs\n",time_spent)
+					double time_spent = (double)(end-begin) / CLOCKS_PER_SEC;
+					printf("time: %lfs\n",time_spent);
 				} else {
 					openOverwatch();
 				}
@@ -75,8 +99,8 @@ int main(void){
 					clock_t begin = clock();
 					openDiscord();
 					clock_t end = clock();
-					double time_spend = (double)(end-begin) / CLOCKS_PER_SEC;
-					prinf("time: %'fs\n",time_spent)
+					double time_spent = (double)(end-begin) / CLOCKS_PER_SEC;
+					printf("time: %lfs\n",time_spent);
 				}
 				else {
 					openDiscord();
